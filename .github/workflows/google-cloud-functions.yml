@@ -1,18 +1,7 @@
 name: GoogleCloudFuncitons
 on: [push]
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Set up Go 1.11
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.11
-      id: go
-  
-  gcp_authenticate:
+  deploy:
     name: GCP Authenticate
     runs-on: ubuntu-latest
     steps:
@@ -22,17 +11,12 @@ jobs:
         # https://github.com/actions/gcloud/issues/13#issuecomment-511596628
         GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
 
-  gcp_cli:
-    name: GCP Cli
-    runs-on: ubuntu-latest
-    needs: gcp_authenticate
-    steps:
-    - name: GCP List Clusters
+    - name: GCP Functions List
       uses: actions/gcloud/cli@master
       with:
         args: "functions list"
 
-    - name: GCP List Clusters
+    - name: Deploy to GCP
       uses: actions/gcloud/cli@master
       with:
         args: "functions deploy link --entry-point=Link --runtime=go111 --trigger-http"
