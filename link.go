@@ -10,7 +10,6 @@ import (
         "cloud.google.com/go/firestore"
       )
 
-
 // GCLOUD_PROJECT is automatically set by the Cloud Functions runtime.
 var projectID = os.Getenv("GCLOUD_PROJECT")
 
