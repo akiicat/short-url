@@ -12,7 +12,7 @@ jobs:
         go-version: 1.11
       id: go
 
-  GCP Authenticate:
+  gcp_authenticate:
     name: GCP Authenticate
     runs-on: ubuntu-latest
     steps:
@@ -21,10 +21,10 @@ jobs:
       env:
         GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
 
-  GCP Cli:
+  gcp_cli:
     name: GCP Cli
     runs-on: ubuntu-latest
-    needs: GCP Authenticate
+    needs: gcp_authenticate
     steps:
     - name: GCP List Clusters
       uses: actions/gcloud/cli@master
