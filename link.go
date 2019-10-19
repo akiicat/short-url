@@ -1,4 +1,3 @@
-// Package p contains an HTTP Cloud Function.
 package link
 
 import (
@@ -41,13 +40,7 @@ func Link(w http.ResponseWriter, r *http.Request) {
   }
 
   m := dsnap.Data()
-
-  linkTo, ok := m["link"].(string)
-  if !ok {
-    log.Fatalf("404 - Data Not Found %s -> %s", url, linkTo)
-    http.Error(w, "404 - Data Not Found " + url + " -> " + linkTo, http.StatusNotFound)
-    return
-  }
+  linkTo := m["link"].(string)
 
   log.Printf("Redirect to: %s -> %s", url, linkTo)
   http.Redirect(w, r, linkTo, http.StatusFound)
