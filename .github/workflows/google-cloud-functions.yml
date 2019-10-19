@@ -11,7 +11,7 @@ jobs:
       with:
         go-version: 1.11
       id: go
-
+  
   gcp_authenticate:
     name: GCP Authenticate
     runs-on: ubuntu-latest
@@ -19,6 +19,7 @@ jobs:
     - name: Setup Google Cloud
       uses: actions/gcloud/auth@master
       env:
+        # https://github.com/actions/gcloud/issues/13#issuecomment-511596628
         GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
 
   gcp_cli:
