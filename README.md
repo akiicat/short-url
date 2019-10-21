@@ -19,3 +19,11 @@
 gcloud functions deploy api --entry-point=Link --runtime=go111 --trigger-http
 ```
 
+## Domain Name
+
+1. Go to Project in Firebase 
+2. Select the **Hosting**
+3. Create a new domain
+  - Enter your domain
+  - And Redirect your domain to current web site
+
