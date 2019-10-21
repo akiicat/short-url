@@ -1,3 +1,6 @@
+
+![](https://github.com/akiicat/short-url/workflows/Deploy to Google Cloud Functions/badge.svg)
+
 # Short Url on Google Cloud Function
 
 ## Databse
