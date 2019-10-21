@@ -1,4 +1,4 @@
-name: GoogleCloudFuncitons
+name: Deploy to Google Cloud Functions
 on: [push]
 jobs:
   deploy:
