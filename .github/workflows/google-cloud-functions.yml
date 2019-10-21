@@ -21,6 +21,12 @@ jobs:
       with:
         args: "functions list"
 
+    - name: File List
+      run: "ls -la"
+
+    - name: PWD
+      run: "pwd"
+
     - name: Deploy to GCP
       uses: actions/gcloud/cli@master
       with:
