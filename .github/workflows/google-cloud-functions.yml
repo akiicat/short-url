@@ -24,4 +24,4 @@ jobs:
     - name: Deploy to GCP
       uses: actions/gcloud/cli@master
       with:
-        args: "functions deploy link --entry-point=Link --runtime=go111 --trigger-http"
+        args: "functions deploy link --entry-point=Link --runtime=go111 --trigger-http --source=."
