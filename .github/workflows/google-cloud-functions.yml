@@ -21,11 +21,28 @@ jobs:
       with:
         args: "functions list"
 
+    - name: PWD
+      run: "pwd"
+
     - name: File List
       run: "ls -la"
 
+    - name: Upper File List
+      run: "ls -la .."
+
+    # https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions
+    # If you don't use the actions/checkout action, the directory will be empty. For example, /home/runner/work/my-repo-name/my-repo-name.
+    - name: Repo Checkout
+      uses: actions/checkout@master
+
     - name: PWD
       run: "pwd"
+
+    - name: File List
+      run: "ls -la"
+
+    - name: Upper File List
+      run: "ls -la .."
 
     - name: Deploy to GCP
       uses: actions/gcloud/cli@master
