@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "/api",
+        "function": "api"
+      },
+      {
+        "source": "/**",
+        "function": "api"
+      }
+    ]
+  }
+}
