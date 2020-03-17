@@ -39,5 +39,5 @@ jobs:
 
     - name: Deploy to GCP
       run: |
-        glcloud functions deploy api --entry-point=Link --runtime=go113 --trigger-http
+        gcloud functions deploy api --entry-point=Link --runtime=go113 --trigger-http
 
