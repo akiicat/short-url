@@ -13,13 +13,24 @@
   - Column:
     - **link**: **[REDIRECT_URL]**
 
+## Setup Env
+
+```shell
+echo "PROJECT_ID: $PROJECT_ID" >> .env
+```
+
 ## Deploy command
 
 ```sh
-gcloud functions deploy link --entry-point=Link --runtime=go113 --trigger-http
+cd link
+go mod vendor
+cd ..
+gcloud functions deploy link --source=link --entry-point=Link --runtime=go113 --trigger-http --quiet --env-vars-file .env
 ```
 
 ## Deploy firebase routes
+
+Edit **firebase.json**
 
 ```shell
 firebase use $PROJECT_ID
