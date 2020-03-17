@@ -5,31 +5,34 @@ jobs:
     name: GCP Authenticate
     runs-on: ubuntu-latest
     steps:
+    - name: Current Time
+      run: date
+
     # https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions
     # If you don't use the actions/checkout action, the directory will be empty. For example, /home/runner/work/my-repo-name/my-repo-name.
     - name: Repo Checkout to Master
-      uses: actions/checkout@master
+      uses: actions/checkout@v1
 
+    - name: Setup Google Cloud
+      uses: actions-hub/gcloud@master
+      env:
+        PROJECT_ID: ${{ secrets.ProjectID }}
+        APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH }}
+      with:
+        args: info
+        
     - name: List Files
       run: "ls -la"
 
-    - name: Setup Google Cloud
-      uses: actions/gcloud/auth@master
-      env:
-        # https://github.com/actions/gcloud/issues/13#issuecomment-511596628
-        GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
-
-    - name: GCP Setup Project ID
-      uses: actions/gcloud/cli@master
-      with:
-        args: "config set project ${{ secrets.ProjectID }}"
+    - name: Set Default ProjectID
+      run: |
+        gcloud config set project ${{ secrets.ProjectID }}
 
     - name: GCP Functions List
-      uses: actions/gcloud/cli@master
-      with:
-        args: "functions list"
+      run: |
+        gcloud functions list
 
     - name: Deploy to GCP
-      uses: actions/gcloud/cli@master
-      with:
-        args: "functions deploy api --entry-point=Link --runtime=go113 --trigger-http"
+      run: |
+        glcloud functions deploy api --entry-point=Link --runtime=go113 --trigger-http
+
