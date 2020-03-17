@@ -8,27 +8,27 @@ import (
         "net/http"
 
         "cloud.google.com/go/firestore"
-        "github.com/julienschmidt/httprouter"
+        "github.com/gorilla/mux"
       )
 
-var mux = newRouter()
+var router = newRouter()
 
-func newRouter() *httprouter.Router {
-  mux := httprouter.New()
-  mux.GET("/:id", LinkController)
-  mux.GET("/api/:id", LinkController)
-	return mux
+func newRouter() *mux.Router {
+  router := mux.NewRouter()
+  router.HandleFunc("/{id}", LinkController)
+  router.HandleFunc("/api/{id}", LinkController)
+	return router
 }
 
 //F represents cloud function entry point
 func Link(w http.ResponseWriter, r *http.Request) {
-	mux.ServeHTTP(w, r)
+  router.ServeHTTP(w, r)
 }
 
 // GCLOUD_PROJECT is automatically set by the Cloud Functions runtime.
 var projectID = os.Getenv("PROJECT_ID")
 
-func LinkController(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+func LinkController(w http.ResponseWriter, r *http.Request) {
 
   // https://github.com/golang/go/issues/15867#issuecomment-223748637
   cs := w.Header().Get("Set-Cookie")
@@ -36,9 +36,10 @@ func LinkController(w http.ResponseWriter, r *http.Request, params httprouter.Pa
   w.Header().Set("Set-Cookie", cs)
 
   url := r.URL.Path
+  id := mux.Vars(r)["id"]
   ctx := context.Background()
 
-  log.Println("ingress url:", url, "id:", params.ByName("id"))
+  log.Println("ingress url:", url, "id:", id)
 
   client, err := firestore.NewClient(ctx, projectID)
   if err != nil {
