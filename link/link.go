@@ -8,14 +8,15 @@ import (
         "net/http"
 
         "cloud.google.com/go/firestore"
+        "github.com/julienschmidt/httprouter"
       )
 
-var mux = newMux()
+var mux = newRouter()
 
-func newMux() *http.ServeMux {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/api/{url}", LinkController)
-	mux.HandleFunc("/{url}", LinkController)
+func newRouter() *httprouter.Router {
+  mux := httprouter.New()
+  mux.GET("/:id", LinkController)
+  mux.GET("/api/:id", LinkController)
 	return mux
 }
 
@@ -27,7 +28,7 @@ func Link(w http.ResponseWriter, r *http.Request) {
 // GCLOUD_PROJECT is automatically set by the Cloud Functions runtime.
 var projectID = os.Getenv("PROJECT_ID")
 
-func LinkController(w http.ResponseWriter, r *http.Request) {
+func LinkController(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 
   // https://github.com/golang/go/issues/15867#issuecomment-223748637
   cs := w.Header().Get("Set-Cookie")
@@ -37,7 +38,7 @@ func LinkController(w http.ResponseWriter, r *http.Request) {
   url := r.URL.Path
   ctx := context.Background()
 
-  log.Println("ingress url:", url)
+  log.Println("ingress url:", url, "id:", params.ByName("id"))
 
   client, err := firestore.NewClient(ctx, projectID)
   if err != nil {
