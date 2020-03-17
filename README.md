@@ -16,7 +16,7 @@
 ## Deploy command
 
 ```sh
-gcloud functions deploy api --entry-point=Link --runtime=go113 --trigger-http
+gcloud functions deploy link --entry-point=Link --runtime=go113 --trigger-http
 ```
 
 ## Deploy firebase routes
