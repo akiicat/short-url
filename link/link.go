@@ -11,7 +11,7 @@ import (
       )
 
 // GCLOUD_PROJECT is automatically set by the Cloud Functions runtime.
-var projectID = os.Getenv("GCLOUD_PROJECT")
+var projectID = os.Getenv("PROJECT_ID")
 
 func Link(w http.ResponseWriter, r *http.Request) {
 
