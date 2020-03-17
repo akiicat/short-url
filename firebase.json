@@ -1,14 +1,10 @@
 {
   "hosting": {
-    "public": "api",
+    "public": "link",
     "rewrites": [
       {
-        "source": "/api",
-        "function": "api"
-      },
-      {
         "source": "/**",
-        "function": "api"
+        "function": "link"
       }
     ]
   }
