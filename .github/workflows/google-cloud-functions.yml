@@ -28,6 +28,11 @@ jobs:
       run: |
         gcloud config set project ${{ secrets.ProjectID }}
 
+    - name: Setup Google Cloud Deploy Key
+      run: |
+        echo ${{ secrets.GCLOUD_AUTH }} | base64 -d > deploy-key.json
+        gcloud auth activate-service-account --key-file ./deploy-key.json
+
     - name: GCP Functions List
       run: |
         gcloud functions list
