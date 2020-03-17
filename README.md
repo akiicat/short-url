@@ -16,10 +16,10 @@
 ## Deploy command
 
 ```sh
-gcloud functions deploy api --entry-point=Link --runtime=go111 --trigger-http
+gcloud functions deploy api --entry-point=Link --runtime=go113 --trigger-http
 ```
 
-## Domain Name
+## Customism Domain Name
 
 1. Go to Project in Firebase 
 2. Select the **Hosting**
