@@ -48,7 +48,7 @@ func LinkController(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  dsnap, err := client.Collection("links").Doc(url[1:]).Get(ctx)
+  dsnap, err := client.Collection("links").Doc(id).Get(ctx)
   if err != nil {
     log.Fatalln(err)
     http.Error(w, "404 - Not Found url", http.StatusNotFound)
