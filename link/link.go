@@ -10,10 +10,24 @@ import (
         "cloud.google.com/go/firestore"
       )
 
+var mux = newMux()
+
+func newMux() *http.ServeMux {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/api/{url}", LinkController)
+	mux.HandleFunc("/{url}", LinkController)
+	return mux
+}
+
+//F represents cloud function entry point
+func Link(w http.ResponseWriter, r *http.Request) {
+	mux.ServeHTTP(w, r)
+}
+
 // GCLOUD_PROJECT is automatically set by the Cloud Functions runtime.
 var projectID = os.Getenv("PROJECT_ID")
 
-func Link(w http.ResponseWriter, r *http.Request) {
+func LinkController(w http.ResponseWriter, r *http.Request) {
 
   // https://github.com/golang/go/issues/15867#issuecomment-223748637
   cs := w.Header().Get("Set-Cookie")
