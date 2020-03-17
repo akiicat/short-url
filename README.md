@@ -19,6 +19,13 @@
 gcloud functions deploy api --entry-point=Link --runtime=go113 --trigger-http
 ```
 
+## Deploy firebase routes
+
+```shell
+firebase use $PROJECT_ID
+firebase deploy --only hosting
+```
+
 ## Customism Domain Name
 
 1. Go to Project in Firebase 
