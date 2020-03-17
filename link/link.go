@@ -23,6 +23,8 @@ func Link(w http.ResponseWriter, r *http.Request) {
   url := r.URL.Path
   ctx := context.Background()
 
+  log.Println("ingress url:", url)
+
   client, err := firestore.NewClient(ctx, projectID)
   if err != nil {
     log.Fatalln(err)
